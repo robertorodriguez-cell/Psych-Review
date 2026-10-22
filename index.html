@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Psych Review – Cowboys Psychology 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;600;700&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#850834; --oxblood:#5a0620; --crimson:#b3123f; --silver:#a7a9ac;
+  --bg:#efe3c8; --paper:#fbf5e6; --ink:#2b1a14; --muted:#6b5649; --line:#d6c29a;
+  --accent:#850834; --accentInk:#ffffff; --tab:#e6d6b2;
+  --good:#256b3e; --goodbg:#dff0e3; --bad:#9b0f2c; --badbg:#f8dde2;
+  --display:"Rockwell Extra Bold","Rockwell","Zilla Slab",Georgia,serif;
+  --body:"Arial Narrow","Archivo Narrow","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1d1412; --paper:#2a1d1a; --ink:#f2e7d5; --muted:#c3ae9b; --line:#4d3832;
+    --accent:#c0245a; --tab:#3a2924; --good:#86d6a0; --goodbg:#1d3a27; --bad:#ff93a6; --badbg:#47161f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1d1412; --paper:#2a1d1a; --ink:#f2e7d5; --muted:#c3ae9b; --line:#4d3832;
+  --accent:#c0245a; --tab:#3a2924; --good:#86d6a0; --goodbg:#1d3a27; --bad:#ff93a6; --badbg:#47161f;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg);min-height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:18px; line-height:1.45;
+  min-height:100%;background-image:radial-gradient(ellipse at top,rgba(255,255,255,.18),transparent 60%);background-repeat:no-repeat;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--crimson);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;margin:0}
+
+/* Header */
+.top{background:linear-gradient(180deg,var(--maroon),var(--oxblood));color:#fff;border-bottom:5px solid var(--silver)}
+.top .in{max-width:900px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;gap:16px}
+.star{width:54px;height:54px;flex:none}
+.top h1{font-size:clamp(26px,5vw,38px);letter-spacing:.5px}
+.top p{margin:2px 0 0;color:#e9d3dc;font-size:16px}
+.top .home{margin-left:auto;background:transparent;border:2px solid rgba(255,255,255,.55);color:#fff;border-radius:6px;padding:6px 12px;font-weight:700}
+
+main{max-width:900px;margin:0 auto;padding:22px 20px 40px}
+.intro{font-size:19px;margin:0 0 22px;max-width:62ch;color:var(--muted)}
+.sec{margin:28px 0 12px;font-size:24px;color:var(--accent)}
+
+/* Chapter list */
+.chapters{display:grid;gap:12px}
+.chap{display:grid;grid-template-columns:56px 1fr auto;gap:4px 16px;align-items:center;text-align:left;
+  background:var(--paper);border:2px solid var(--line);border-left:8px solid var(--accent);border-radius:4px;padding:14px 16px}
+.chap:hover{border-color:var(--accent)}
+.chap .ico{font-size:34px;grid-row:span 2;text-align:center}
+.chap .ct{font-family:var(--display);font-size:21px}
+.chap .cb{color:var(--muted);font-size:16px;grid-column:2}
+.chap .st{grid-row:1 / span 2;grid-column:3;text-align:right;font-size:15px;color:var(--muted);white-space:nowrap}
+.chap .st b{display:block;font-family:var(--display);font-size:22px;color:var(--ink)}
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.big{background:var(--accent);color:var(--accentInk);border:0;border-radius:4px;padding:18px;text-align:left}
+.big strong{display:block;font-family:var(--display);font-size:20px}
+.big span{font-size:16px;opacity:.9}
+.big.alt{background:var(--paper);color:var(--ink);border:2px solid var(--accent)}
+.big:disabled{opacity:.45;cursor:not-allowed}
+.foot{margin-top:34px;font-size:15px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.link{background:none;border:0;color:var(--accent);text-decoration:underline;padding:0}
+
+/* Chapter view */
+.chhead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.chhead .ico{font-size:40px}
+.chhead h2{font-size:clamp(24px,4.5vw,32px)}
+.tabs{display:flex;gap:6px;border-bottom:3px solid var(--accent);margin-bottom:18px;overflow-x:auto}
+.tab{background:var(--tab);border:0;border-radius:6px 6px 0 0;padding:10px 18px;font-weight:700;font-size:17px;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accentInk)}
+
+/* Flashcards */
+.cardwrap{perspective:1200px;margin:6px 0 14px}
+.fc{position:relative;width:100%;min-height:260px;border:0;background:none;padding:0;transform-style:preserve-3d;transition:transform .45s}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:28px;border-radius:6px;border:3px solid var(--accent);background:var(--paper);box-shadow:0 6px 0 var(--line)}
+.face.back{transform:rotateY(180deg);background:var(--accent);color:var(--accentInk);border-color:var(--oxblood)}
+.face .term{font-family:var(--display);font-size:clamp(26px,5vw,36px)}
+.face .def{font-size:clamp(18px,3vw,22px);max-width:56ch}
+.face small{position:absolute;bottom:12px;font-size:14px;opacity:.7}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.spread{justify-content:space-between}
+.btn{border:2px solid var(--accent);background:var(--paper);color:var(--ink);border-radius:4px;padding:10px 16px;font-weight:700}
+.btn.primary{background:var(--accent);color:var(--accentInk)}
+.btn.good{border-color:var(--good);color:var(--good)}
+.meta{color:var(--muted);font-size:16px}
+.pill{display:inline-block;background:var(--goodbg);color:var(--good);border-radius:999px;padding:2px 10px;font-size:14px;font-weight:700}
+
+/* Quiz */
+.qhead{display:flex;justify-content:space-between;color:var(--muted);font-size:16px}
+.prog{height:8px;background:var(--tab);border-radius:4px;margin:6px 0 16px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qcard{background:var(--paper);border:2px solid var(--line);border-radius:4px;padding:20px}
+.q{font-size:21px;font-weight:600;margin:0 0 16px}
+.tag{font-size:14px;color:var(--muted);margin-bottom:6px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:4px;padding:12px 14px;font-size:18px}
+.opt b{font-family:var(--display);color:var(--accent);min-width:1.2em}
+.opt:not(:disabled):hover{border-color:var(--accent)}
+.opt.right{background:var(--goodbg);border-color:var(--good)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.fb{margin:16px 0 12px;padding:12px 14px;border-radius:4px;border-left:6px solid}
+.fb.ok{background:var(--goodbg);border-color:var(--good)}
+.fb.no{background:var(--badbg);border-color:var(--bad)}
+.labels{display:flex;flex-wrap:wrap;gap:10px}
+.labels .opt{flex:1 1 180px;justify-content:center;font-weight:700}
+
+/* Results */
+.result{text-align:center;background:var(--paper);border:3px solid var(--accent);border-radius:6px;padding:26px 20px}
+.result .pct{font-family:var(--display);font-size:64px;color:var(--accent);line-height:1}
+.review{margin-top:18px;text-align:left}
+.review li{margin-bottom:10px}
+.review .ans{color:var(--good);font-weight:700}
+
+@media (max-width:600px){
+  .prep{grid-template-columns:1fr}
+  .chap{grid-template-columns:44px 1fr}
+  .chap .st{grid-row:auto;grid-column:2;text-align:left}
+  .chap .st b{display:inline;font-size:16px}
+  .top .in{padding:14px 16px}
+  .star{width:42px;height:42px}
+}
+@media (prefers-reduced-motion:reduce){.fc,.prog i{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="in">
+    <svg class="star" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,5 61,38 96,38 68,59 78,93 50,72 22,93 32,59 4,38 39,38" fill="#fff" stroke="#a7a9ac" stroke-width="4" stroke-linejoin="round"/></svg>
+    <div>
+      <h1>Psych Review</h1>
+      <p>Cowboys Psychology 1 test prep</p>
+    </div>
+    <button class="home" id="homeBtn" hidden>Chapters</button>
+  </div>
+</header>
+<main id="app"></main>
+
+<script>
+(function(){
+/* ---------------- CONTENT ---------------- */
+/* Quiz format: o[0] is always the correct answer (options are shuffled on screen). */
+const CH = [
+{
+ id:"dev", name:"Developmental Psychology", icon:"👶",
+ blurb:"Piaget, Erikson, Kohlberg, attachment and parenting styles",
+ cards:[
+  ["Schema","A mental framework that organizes and interprets information."],
+  ["Assimilation","Fitting a new experience into an existing schema. A toddler calls every four-legged animal “doggy.”"],
+  ["Accommodation","Changing a schema to fit new information. The toddler learns that cats are not dogs."],
+  ["Sensorimotor Stage (birth–2)","Piaget’s first stage. Babies learn through senses and actions and develop object permanence."],
+  ["Object Permanence","Knowing that objects still exist when you can’t see them."],
+  ["Preoperational Stage (2–7)","Language and pretend play grow, but thinking is egocentric and the child cannot conserve."],
+  ["Egocentrism","Being unable to see a situation from another person’s point of view."],
+  ["Concrete Operational Stage (7–11)","Logical thinking about real, concrete events. The child masters conservation."],
+  ["Conservation","Understanding that an amount stays the same even when its shape changes."],
+  ["Formal Operational Stage (12+)","Abstract, hypothetical reasoning: “What if…?” thinking."],
+  ["Attachment","An emotional bond with another person. Harlow’s monkeys showed that contact comfort matters more than food."],
+  ["Strange Situation","Mary Ainsworth’s test of attachment: how an infant reacts when the caregiver leaves and returns (secure vs. insecure)."],
+  ["Authoritarian Parenting","Strict rules, obedience expected, little warmth or explanation."],
+  ["Permissive Parenting","Lots of warmth, few rules or demands."],
+  ["Authoritative Parenting","High expectations AND high warmth; rules are explained. Linked to the best outcomes."],
+  ["Erikson’s Psychosocial Stages","Eight life stages, each with a crisis to resolve, e.g., trust vs. mistrust (infancy) and identity vs. role confusion (adolescence)."],
+  ["Kohlberg’s Moral Levels","Preconventional (avoid punishment, get rewards) → Conventional (follow laws, gain approval) → Postconventional (universal ethical principles)."],
+  ["Teratogens","Harmful agents, such as alcohol, drugs or viruses, that can damage an embryo or fetus."]
+ ],
+ quiz:[
+  {q:"A baby doesn’t look for a toy after it is hidden under a blanket. Which ability has the baby NOT developed yet?",o:["Object permanence","Conservation","Egocentrism","Abstract reasoning"],e:"Object permanence develops during the sensorimotor stage. Without it, “out of sight” means “gone.”"},
+  {q:"A 4-year-old insists a tall, thin glass holds more juice than a short, wide glass with the same amount. Which stage is she in?",o:["Preoperational","Sensorimotor","Concrete operational","Formal operational"],e:"Preoperational children cannot yet conserve, so they judge amount by how it looks."},
+  {q:"A child learns that whales are mammals, not fish, and changes her idea of “mammal.” This is…",o:["Accommodation","Assimilation","Conservation","Imprinting"],e:"Accommodation means changing a schema to fit new information."},
+  {q:"What did Harry Harlow’s experiments with infant monkeys show?",o:["Contact comfort mattered more than food in forming attachment","Monkeys attached to whichever mother provided milk","Attachment is formed only through imprinting","Monkeys raised alone developed normally"],e:"The monkeys clung to the soft cloth mother even though the wire mother provided the milk."},
+  {q:"Mary Ainsworth’s Strange Situation was designed to measure…",o:["The quality of an infant’s attachment","Moral reasoning","Object permanence","Parenting style"],e:"It observes how infants react when the caregiver leaves and returns, classifying attachment as secure or insecure."},
+  {q:"Parents who set clear rules, explain the reasons for them, and are warm and responsive are…",o:["Authoritative","Authoritarian","Permissive","Neglectful"],e:"Authoritative = high demands + high warmth. Don’t confuse it with authoritarian (strict, little warmth)."},
+  {q:"“I won’t cheat on the test because I’ll get detention.” Which level of Kohlberg’s moral development is this?",o:["Preconventional","Conventional","Postconventional","Formal operational"],e:"Preconventional reasoning is based on self-interest: avoiding punishment or getting a reward."},
+  {q:"According to Erikson, the main challenge of adolescence is…",o:["Identity vs. role confusion","Trust vs. mistrust","Intimacy vs. isolation","Integrity vs. despair"],e:"Teens work to figure out who they are; Erikson called this identity vs. role confusion."},
+  {q:"Alcohol that crosses the placenta and harms a developing fetus is an example of a…",o:["Teratogen","Schema","Reflex","Critical period"],e:"Teratogens are harmful agents (alcohol, drugs, viruses) that can damage prenatal development."},
+  {q:"A student debates “What would happen to society if no one ever lied?” This hypothetical thinking first appears in which stage?",o:["Formal operational","Concrete operational","Preoperational","Sensorimotor"],e:"Abstract, hypothetical reasoning is the hallmark of the formal operational stage (about age 12+)."},
+  {q:"“I follow the law because society needs rules to function.” This reasoning fits Kohlberg’s…",o:["Conventional level","Preconventional level","Postconventional level","Sensorimotor stage"],e:"Conventional reasoning focuses on laws, rules and social approval."}
+ ],
+ sort:{title:"Which Piaget stage?",prompt:"Read each example and choose the stage it shows.",
+  labels:["Sensorimotor","Preoperational","Concrete operational","Formal operational"],
+  items:[
+   ["A 10-month-old giggles every time Dad reappears during peekaboo.",0,"Peekaboo works because object permanence is still developing, a sensorimotor feature."],
+   ["A 3-year-old pretends a broom is a horse.",1,"Pretend (symbolic) play blossoms in the preoperational stage."],
+   ["A child covers her own eyes and says, “You can’t see me!”",1,"That’s egocentrism: assuming others see what she sees. Preoperational."],
+   ["A 9-year-old knows that a flattened ball of clay has the same amount as before.",2,"Mastering conservation marks the concrete operational stage."],
+   ["A 15-year-old argues about what “justice” really means.",3,"Reasoning about abstract ideas is formal operational."],
+   ["A baby learns about a rattle by shaking it and putting it in his mouth.",0,"Learning through senses and motor actions is sensorimotor."],
+   ["An 8-year-old can solve math word problems with real objects but struggles with algebra’s abstract variables.",2,"Logical with concrete things but not yet abstract: concrete operational."],
+   ["A teen plans for several possible outcomes of a college decision.",3,"Systematic, hypothetical “what if” planning is formal operational."]
+  ]}
+},
+{
+ id:"mem", name:"Memory", icon:"🧠",
+ blurb:"Encoding, storage, retrieval, memory types and forgetting",
+ cards:[
+  ["Encoding","Getting information into the memory system."],
+  ["Storage","Keeping encoded information over time."],
+  ["Retrieval","Getting information back out of memory."],
+  ["Sensory Memory","A brief, large-capacity snapshot of sensory input. Iconic (visual) lasts under a second; echoic (sound) lasts a few seconds."],
+  ["Short-Term Memory","Holds about 7 ± 2 items for roughly 20–30 seconds unless rehearsed."],
+  ["Long-Term Memory","Relatively permanent storage with practically unlimited capacity."],
+  ["Chunking","Grouping information into meaningful units, like reading a phone number as 850-555-0142."],
+  ["Explicit (Declarative) Memory","Facts and experiences you can consciously recall: episodic and semantic."],
+  ["Episodic Memory","Memory of personal experiences: your first day of high school."],
+  ["Semantic Memory","Memory of general facts and knowledge: Tallahassee is Florida’s capital."],
+  ["Implicit Memory","Memory without conscious recall, such as procedural skills and conditioned responses."],
+  ["Procedural Memory","Memory for how to do things: riding a bike, typing."],
+  ["Serial Position Effect","We best remember items at the beginning (primacy) and end (recency) of a list."],
+  ["Proactive Interference","OLD learning disrupts recall of NEW information."],
+  ["Retroactive Interference","NEW learning disrupts recall of OLD information."],
+  ["Anterograde Amnesia","Cannot form NEW memories after a brain injury (often hippocampus damage)."],
+  ["Retrograde Amnesia","Cannot recall OLD memories from before the injury."],
+  ["Misinformation Effect","Misleading information after an event distorts the memory of it (Elizabeth Loftus)."],
+  ["Recall vs. Recognition","Recall = retrieve with no cues (fill-in-the-blank). Recognition = identify from options (multiple choice)."],
+  ["Forgetting Curve","Ebbinghaus found that most forgetting happens quickly, then levels off."]
+ ],
+ quiz:[
+  {q:"Which is the correct order of the three memory processes?",o:["Encoding → storage → retrieval","Storage → encoding → retrieval","Retrieval → encoding → storage","Encoding → retrieval → storage"],e:"Information must first be encoded, then stored, and only then can it be retrieved."},
+  {q:"About how many items can short-term memory hold?",o:["7 ± 2","3 ± 1","20 ± 5","Unlimited"],e:"George Miller’s “magical number” is about 7 plus or minus 2 items."},
+  {q:"Remembering your tenth birthday party is an example of…",o:["Episodic memory","Semantic memory","Procedural memory","Sensory memory"],e:"Episodic memories are personal experiences tied to a time and place."},
+  {q:"Knowing how to ride a bike without thinking about each step is…",o:["Procedural (implicit) memory","Episodic memory","Semantic memory","Short-term memory"],e:"Skills and habits are procedural memories, a type of implicit memory."},
+  {q:"After learning your new locker combination, you can’t remember last year’s. This is…",o:["Retroactive interference","Proactive interference","Anterograde amnesia","Encoding failure"],e:"Retroactive = new info works backward to disrupt old info."},
+  {q:"Your years of Spanish keep slipping in while you try to learn French vocabulary. This is…",o:["Proactive interference","Retroactive interference","Retrograde amnesia","The serial position effect"],e:"Proactive = old info works forward to disrupt new learning."},
+  {q:"You remember the first and last items on a grocery list but forget the middle. This is the…",o:["Serial position effect","Misinformation effect","Spacing effect","Forgetting curve"],e:"Primacy (beginning) + recency (end) = the serial position effect."},
+  {q:"After damage to his hippocampus, a man can remember his childhood but can’t form any new memories. He has…",o:["Anterograde amnesia","Retrograde amnesia","Proactive interference","Infantile amnesia"],e:"Anterograde amnesia blocks NEW memories from forming; old memories remain."},
+  {q:"Loftus found people estimated higher speeds when asked how fast cars “smashed” rather than “hit.” This shows the…",o:["Misinformation effect","Serial position effect","Primacy effect","Chunking effect"],e:"Leading wording after an event changed people’s memory of it."},
+  {q:"Remembering 1-4-9-2-1-7-7-6 as “1492” and “1776” is an example of…",o:["Chunking","Rehearsal","Retrieval failure","Priming"],e:"Chunking groups items into meaningful units to fit more into short-term memory."},
+  {q:"A multiple-choice question tests which type of retrieval?",o:["Recognition","Recall","Relearning","Rehearsal"],e:"Picking the right answer from options is recognition; fill-in-the-blank is recall."}
+ ],
+ sort:{title:"Type of long-term memory",prompt:"Is it episodic, semantic or procedural?",
+  labels:["Episodic","Semantic","Procedural"],
+  items:[
+   ["Knowing that the heart has four chambers.",1,"A general fact is semantic."],
+   ["Remembering the night your team won the championship.",0,"A personal experience is episodic."],
+   ["Tying your shoes without thinking about it.",2,"A motor skill is procedural."],
+   ["Knowing that 7 × 8 = 56.",1,"A fact you know, not when you learned it, is semantic."],
+   ["Recalling what you ate at Thanksgiving last year.",0,"A specific event in your life is episodic."],
+   ["Typing on a keyboard without looking.",2,"A learned skill is procedural."],
+   ["Remembering your first day at Madison County High.",0,"A personal, time-stamped experience is episodic."],
+   ["Knowing what the word “psychology” means.",1,"Word meanings are semantic memory."]
+  ]}
+},
+{
+ id:"cc", name:"Classical Conditioning & Phobias", icon:"🔔",
+ blurb:"Pavlov, Little Albert, conditioning processes and treating phobias",
+ cards:[
+  ["Classical Conditioning","Learning to associate two stimuli so that one comes to trigger a response the other already caused."],
+  ["Ivan Pavlov","Russian physiologist who discovered classical conditioning while studying digestion in dogs."],
+  ["Neutral Stimulus (NS)","A stimulus that causes no response before conditioning (the bell)."],
+  ["Unconditioned Stimulus (UCS)","Naturally triggers a response without learning (the food)."],
+  ["Unconditioned Response (UCR)","The natural, unlearned response to the UCS (salivating to food)."],
+  ["Conditioned Stimulus (CS)","The once-neutral stimulus that now triggers a response after pairing (the bell, after conditioning)."],
+  ["Conditioned Response (CR)","The learned response to the CS (salivating to the bell)."],
+  ["Acquisition","The initial learning stage when the NS and UCS are paired."],
+  ["Extinction","The CR weakens when the CS is repeatedly presented WITHOUT the UCS."],
+  ["Spontaneous Recovery","After a rest period, an extinguished CR suddenly reappears."],
+  ["Generalization","Responding to stimuli similar to the CS."],
+  ["Discrimination","Responding only to the CS and not to similar stimuli."],
+  ["Little Albert","Watson & Rayner paired a white rat with a loud noise until baby Albert feared the rat. Showed fears can be learned."],
+  ["Phobia","An intense, irrational fear of a specific object or situation, which can be learned through conditioning."],
+  ["Systematic Desensitization","Pairing relaxation with gradually increasing exposure to a feared stimulus (a fear hierarchy)."],
+  ["Flooding","Treating a phobia through intense, prolonged exposure to the feared stimulus until fear fades."],
+  ["Taste Aversion","Avoiding a food after getting sick from it. Garcia showed this can form after one pairing, even with hours of delay."],
+  ["Biological Preparedness","We are biologically primed to learn some associations (like taste and illness) more easily than others."]
+ ],
+ quiz:[
+  {q:"Before conditioning, Pavlov’s bell was a(n)…",o:["Neutral stimulus","Unconditioned stimulus","Conditioned stimulus","Conditioned response"],e:"Before pairing, the bell caused no salivation, so it was neutral."},
+  {q:"In Pavlov’s experiment, the food was the…",o:["Unconditioned stimulus","Conditioned stimulus","Neutral stimulus","Conditioned response"],e:"Food naturally triggers salivation without learning: UCS."},
+  {q:"After conditioning, the dog salivating to the bell alone is the…",o:["Conditioned response","Unconditioned response","Unconditioned stimulus","Neutral stimulus"],e:"Salivating to the bell is learned, so it’s the CR."},
+  {q:"In the Little Albert study, the loud noise was the ___ and the white rat became the ___.",o:["UCS; CS","CS; UCS","UCR; CR","NS; UCR"],e:"The noise naturally caused fear (UCS). After pairing, the rat (once neutral) became the CS."},
+  {q:"Little Albert also became afraid of a white rabbit and a fur coat. This is…",o:["Generalization","Discrimination","Extinction","Spontaneous recovery"],e:"Fearing stimuli similar to the CS is generalization."},
+  {q:"Pavlov rang the bell many times without giving food, and the dog stopped salivating. This is…",o:["Extinction","Acquisition","Discrimination","Generalization"],e:"The CR fades when the CS is presented without the UCS."},
+  {q:"A day after extinction, the dog suddenly salivates to the bell again. This is…",o:["Spontaneous recovery","Acquisition","Generalization","Higher-order conditioning"],e:"An extinguished response reappearing after rest is spontaneous recovery."},
+  {q:"A dog salivates to a 500 Hz tone but not a 1,000 Hz tone. This shows…",o:["Discrimination","Generalization","Extinction","Shaping"],e:"Telling the CS apart from similar stimuli is discrimination."},
+  {q:"You get food poisoning from shrimp and now feel sick at the smell of it. John Garcia’s research explains this as…",o:["Taste aversion","Systematic desensitization","Positive punishment","Latent learning"],e:"Taste aversions form quickly, sometimes after one pairing and with a long delay, showing biological preparedness."},
+  {q:"A therapist teaches a client relaxation, then has her imagine a spider, then view a photo, then see a real spider in a jar. This is…",o:["Systematic desensitization","Flooding","Extinction only","Shaping"],e:"Systematic desensitization pairs relaxation with a gradual fear hierarchy."},
+  {q:"A therapist keeps a client with a fear of elevators inside an elevator for an extended time until the fear subsides. This is…",o:["Flooding","Systematic desensitization","Spontaneous recovery","Generalization"],e:"Flooding uses intense, prolonged exposure all at once rather than gradual steps."}
+ ],
+ sort:{title:"Name that process",prompt:"Which classical conditioning process is happening?",
+  labels:["Acquisition","Extinction","Spontaneous recovery","Generalization","Discrimination"],
+  items:[
+   ["Every time you open the treat bag, your cat comes running. At first she ignored the sound, but after a week of pairings she now runs to it.",0,"The association is being learned: acquisition."],
+   ["You used to get anxious at the school bell, but over summer the bell rang daily with no tests, and the anxiety faded.",1,"The CS kept occurring without the UCS, so the response weakened."],
+   ["Months after getting over a fear of the dentist’s drill, you suddenly tense up at the sound again.",2,"An extinguished response returning after time is spontaneous recovery."],
+   ["After being stung by a bee, you also flinch at flies and wasps.",3,"Responding to similar stimuli is generalization."],
+   ["Your dog gets excited by your car pulling in, but not your neighbor’s car.",4,"Responding only to the specific CS is discrimination."],
+   ["A ringtone that once made you anxious (it meant your boss calling) stops bothering you after you change jobs.",1,"The ringtone is no longer followed by the UCS, so the CR fades."],
+   ["A child who was bitten by a German shepherd becomes afraid of all large dogs.",3,"The fear spreads to similar stimuli: generalization."],
+   ["A baby first starts to smile when she hears her bottle being prepared.",0,"A new association is forming: acquisition."]
+  ]}
+},
+{
+ id:"op", name:"Operant Conditioning", icon:"🐀",
+ blurb:"Reinforcement, punishment, shaping and schedules of reinforcement",
+ cards:[
+  ["Operant Conditioning","Learning in which behavior is strengthened or weakened by its consequences."],
+  ["Law of Effect","Thorndike: behaviors followed by satisfying consequences become more likely."],
+  ["B.F. Skinner","Studied operant conditioning with the Skinner box (operant chamber)."],
+  ["Reinforcement","Any consequence that INCREASES a behavior."],
+  ["Punishment","Any consequence that DECREASES a behavior."],
+  ["Positive (+)","Something is ADDED."],
+  ["Negative (−)","Something is TAKEN AWAY."],
+  ["Positive Reinforcement","Add something pleasant to increase a behavior (praise for homework)."],
+  ["Negative Reinforcement","Remove something unpleasant to increase a behavior (buckling up stops the seatbelt beep)."],
+  ["Positive Punishment","Add something unpleasant to decrease a behavior (extra chores for talking back)."],
+  ["Negative Punishment","Remove something pleasant to decrease a behavior (losing phone privileges)."],
+  ["Primary Reinforcer","Naturally satisfying; meets a biological need (food, water, warmth)."],
+  ["Secondary (Conditioned) Reinforcer","Gains value through association (money, grades, tokens)."],
+  ["Shaping","Reinforcing successive approximations of a target behavior."],
+  ["Continuous vs. Partial Reinforcement","Continuous: reinforce every time (fast learning, fast extinction). Partial: reinforce some of the time (slower learning, more resistant to extinction)."],
+  ["Fixed-Ratio (FR)","Reinforcement after a set NUMBER of responses (every 10th coffee free)."],
+  ["Variable-Ratio (VR)","Reinforcement after an unpredictable number of responses (slot machines). Most resistant to extinction."],
+  ["Fixed-Interval (FI)","Reinforcement for the first response after a set amount of TIME (a biweekly paycheck). Produces a “scallop” pattern."],
+  ["Variable-Interval (VI)","Reinforcement for the first response after an unpredictable amount of time (pop quizzes, checking for texts)."]
+ ],
+ quiz:[
+  {q:"Reinforcement always ___ a behavior, while punishment always ___ a behavior.",o:["increases; decreases","decreases; increases","adds to; takes away","starts; stops"],e:"Reinforcement makes a behavior more likely; punishment makes it less likely, whether positive or negative."},
+  {q:"A teen misses curfew, so her parents take away her phone for the weekend. This is…",o:["Negative punishment","Positive punishment","Negative reinforcement","Positive reinforcement"],e:"Something pleasant is removed (−) to decrease the behavior (punishment)."},
+  {q:"The car’s seatbelt alarm stops beeping when you buckle up, so you buckle up faster. This is…",o:["Negative reinforcement","Positive reinforcement","Negative punishment","Positive punishment"],e:"An unpleasant beep is removed (−) and buckling increases (reinforcement)."},
+  {q:"A student who talks back gets assigned extra chores. This is…",o:["Positive punishment","Negative punishment","Negative reinforcement","Positive reinforcement"],e:"Something unpleasant is added (+) to decrease the behavior (punishment)."},
+  {q:"A slot machine pays out after an unpredictable number of pulls. This is a ___ schedule.",o:["Variable-ratio","Fixed-ratio","Fixed-interval","Variable-interval"],e:"Unpredictable number of responses = variable-ratio."},
+  {q:"Getting paid every two weeks is a ___ schedule.",o:["Fixed-interval","Fixed-ratio","Variable-interval","Variable-ratio"],e:"A set amount of time = fixed-interval."},
+  {q:"A teacher gives pop quizzes at random times, so students study steadily. This is a ___ schedule.",o:["Variable-interval","Fixed-interval","Variable-ratio","Fixed-ratio"],e:"Reinforcement depends on unpredictable time, not number of responses: variable-interval."},
+  {q:"A coffee shop gives you a free drink after every 10 purchases. This is a ___ schedule.",o:["Fixed-ratio","Variable-ratio","Fixed-interval","Variable-interval"],e:"A set number of responses = fixed-ratio."},
+  {q:"Which schedule produces behavior that is MOST resistant to extinction?",o:["Variable-ratio","Fixed-ratio","Fixed-interval","Continuous reinforcement"],e:"Because the next reward could always be one response away, VR behavior persists the longest."},
+  {q:"Training a dog to roll over by first rewarding lying down, then rolling onto its side, then a full roll is…",o:["Shaping","Generalization","Negative reinforcement","Latent learning"],e:"Shaping reinforces successive approximations toward the target behavior."},
+  {q:"Money is an example of a…",o:["Secondary (conditioned) reinforcer","Primary reinforcer","Positive punishment","Unconditioned stimulus"],e:"Money has no biological value; it’s reinforcing because of what it is associated with."},
+  {q:"Thorndike’s law of effect states that…",o:["Behaviors followed by satisfying consequences are more likely to be repeated","Neutral stimuli become conditioned stimuli","Learning can occur without reinforcement","Punishment is more effective than reinforcement"],e:"Thorndike’s puzzle-box cats repeated the actions that led to escape and food."}
+ ],
+ sort:{title:"Reinforcement or punishment?",prompt:"Ask two questions: Was something added (+) or removed (−)? Did the behavior go up or down?",
+  labels:["Positive reinforcement","Negative reinforcement","Positive punishment","Negative punishment"],
+  items:[
+   ["A student gets a sticker for turning in homework, and turns it in more often.",0,"Sticker added (+), behavior increases: positive reinforcement."],
+   ["You take an aspirin and your headache goes away, so you take aspirin again next time.",1,"Pain removed (−), behavior increases: negative reinforcement."],
+   ["A child touches a hot stove, gets burned, and stops touching it.",2,"Pain added (+), behavior decreases: positive punishment."],
+   ["A teen gets his car keys taken away for speeding.",3,"Privilege removed (−) to decrease speeding: negative punishment."],
+   ["You clean your room so your mom will stop nagging you.",1,"Nagging removed (−), cleaning increases: negative reinforcement."],
+   ["A player gets benched for missing practice.",3,"Playing time removed (−) to decrease skipping: negative punishment."],
+   ["An employee gets a bonus for exceeding sales goals.",0,"Bonus added (+), effort increases: positive reinforcement."],
+   ["A driver gets a speeding ticket.",2,"A fine is added (+) to decrease speeding: positive punishment."],
+   ["You leave early to avoid traffic, and keep doing it.",1,"Traffic avoided (−), leaving early increases: negative reinforcement."],
+   ["A student loses recess time for being disruptive.",3,"Recess removed (−) to decrease disruption: negative punishment."]
+  ]}
+},
+{
+ id:"cog", name:"Cognitive Factors in Learning", icon:"💡",
+ blurb:"Tolman, latent learning, insight, Bandura and observational learning",
+ cards:[
+  ["Cognitive Learning","Learning that involves mental processes like thinking, expectation and understanding, not just stimulus and response."],
+  ["Edward Tolman","Showed rats learn mazes even without rewards, forming mental maps."],
+  ["Cognitive Map","A mental representation of the layout of an environment."],
+  ["Latent Learning","Learning that happens without reinforcement and isn’t shown until there’s a reason to show it."],
+  ["Wolfgang Köhler","Studied problem solving in chimpanzees (such as Sultan stacking boxes or joining sticks to reach bananas)."],
+  ["Insight","A sudden realization of a problem’s solution, the “aha!” moment."],
+  ["Observational Learning","Learning by watching others."],
+  ["Albert Bandura","Showed children imitate aggression they observe (the Bobo doll experiment)."],
+  ["Bobo Doll Experiment","Children who watched an adult hit an inflatable doll were more likely to act aggressively toward it."],
+  ["Modeling","Observing and imitating the behavior of others."],
+  ["Bandura’s Four Steps","Attention → Retention → Reproduction → Motivation."],
+  ["Vicarious Reinforcement","Seeing someone else rewarded makes you more likely to copy the behavior."],
+  ["Vicarious Punishment","Seeing someone else punished makes you less likely to copy the behavior."],
+  ["Mirror Neurons","Brain cells that fire both when you do an action and when you watch someone else do it."],
+  ["Prosocial Behavior","Positive, helpful behavior, which can also be learned through modeling."],
+  ["Learned Helplessness","Seligman: after repeated uncontrollable bad events, an organism stops trying to escape, even when escape becomes possible."]
+ ],
+ quiz:[
+  {q:"Tolman’s rats explored a maze for 10 days with no food. Once food was added, they quickly matched the rewarded rats. This shows…",o:["Latent learning","Insight","Shaping","Classical conditioning"],e:"The rats had learned the maze without reinforcement; the learning stayed hidden until there was a reason to use it."},
+  {q:"A cognitive map is…",o:["A mental picture of the layout of an environment","A diagram of brain regions","A list of reinforcement schedules","A therapist’s fear hierarchy"],e:"Tolman proposed that rats formed mental representations of the maze."},
+  {q:"Köhler’s chimpanzee Sultan suddenly joined two sticks to reach a banana after failing for a while. This is…",o:["Insight","Latent learning","Trial-and-error learning","Observational learning"],e:"A sudden “aha!” solution is insight."},
+  {q:"In Bandura’s Bobo doll experiment, children who watched an adult hit the doll…",o:["Were more likely to act aggressively toward it","Were less aggressive than other children","Ignored the doll","Only imitated when they were rewarded first"],e:"The study showed aggression can be learned through observation."},
+  {q:"What is the correct order of Bandura’s steps of observational learning?",o:["Attention, retention, reproduction, motivation","Motivation, attention, retention, reproduction","Retention, attention, motivation, reproduction","Attention, reproduction, retention, motivation"],e:"You must notice it, remember it, be able to do it, and want to do it."},
+  {q:"You see your older brother get praised for washing the car, so you start washing the car too. This is…",o:["Vicarious reinforcement","Negative reinforcement","Latent learning","Insight"],e:"Seeing someone else rewarded makes you more likely to imitate the behavior."},
+  {q:"Dogs that couldn’t escape shocks later didn’t try to escape even when they could. Seligman called this…",o:["Learned helplessness","Extinction","Latent learning","Vicarious punishment"],e:"After repeated lack of control, the dogs learned that their actions didn’t matter."},
+  {q:"Brain cells that fire both when you perform an action and when you watch someone else perform it are…",o:["Mirror neurons","Motor neurons","Interneurons","Sensory neurons"],e:"Mirror neurons may help explain imitation and empathy."},
+  {q:"Why was latent learning a challenge to strict behaviorism?",o:["It showed learning can happen without reinforcement","It proved punishment doesn’t work","It showed animals can’t form associations","It showed learning only happens through observation"],e:"Behaviorists believed reinforcement was necessary for learning; Tolman’s rats learned without it."},
+  {q:"A child watches a parent volunteer at a food bank and later offers to help a classmate. This is an example of modeling…",o:["Prosocial behavior","Antisocial behavior","Learned helplessness","Insight"],e:"Observational learning works for positive, helpful behavior too."}
+ ],
+ sort:{title:"Which kind of learning?",prompt:"Match each example to the type of cognitive learning.",
+  labels:["Latent learning","Insight","Observational learning","Learned helplessness"],
+  items:[
+   ["You ride the bus to school every day. When your mom needs directions to the school, you can tell her the whole route.",0,"You learned the route without any reward and only showed it when needed."],
+   ["After staring at a puzzle for 10 minutes, the solution suddenly hits you.",1,"A sudden “aha!” is insight."],
+   ["A toddler copies the way her dad stirs pancake batter.",2,"Learning by watching and imitating is observational learning."],
+   ["After failing every math test no matter how much he studied, a student stops studying at all.",3,"Repeated lack of control led him to stop trying."],
+   ["A new employee watches a coworker get praised for staying late, then starts staying late too.",2,"Watching someone else get rewarded is observational learning (vicarious reinforcement)."],
+   ["A chimp stacks boxes to reach a banana after a sudden realization.",1,"Köhler’s chimps showed insight."],
+   ["A rat that explored a maze without food finds the goal box quickly once food appears there.",0,"Tolman’s classic latent learning result."],
+   ["A dog that couldn’t escape shocks later lies down and doesn’t try to jump to safety.",3,"Seligman’s learned helplessness."]
+  ]}
+},
+{
+ id:"tl", name:"Thinking & Language", icon:"💭",
+ blurb:"Concepts, problem solving, thinking errors, creativity and language",
+ cards:[
+  ["Cognition","The mental activities and processes associated with thinking, knowing, remembering and communicating information."],
+  ["Concept","A label or mental grouping of similar objects, events, ideas and people. The concept “chair” covers high chairs, recliners and dentist’s chairs."],
+  ["Prototype","A “typical” member of a category, one with the most defining features of that category (the perfect example). A robin is a more prototypical bird than a penguin."],
+  ["Strategies","Specific methods for approaching problems: (1) break a problem into smaller subgoals, (2) work backward from the goal, (3) use a strategy that worked in the past."],
+  ["Algorithm","A step-by-step procedure for solving a problem. Always leads to the correct answer, but can be long and tedious."],
+  ["Systematic Search","A type of algorithm where every possible solution is tried and tested."],
+  ["Heuristic","A mental shortcut that lets us make judgments and solve problems efficiently. Faster than an algorithm, but prone to errors."],
+  ["Trial and Error","Trying possibilities until one works, without a set system (Edison testing thousands of light-bulb filaments)."],
+  ["Insight","A sudden realization of the solution to a problem, the “Aha!” moment. It can appear anytime because we keep working on problems subconsciously."],
+  ["Mental Set","A habitual strategy or pattern for problem solving. It can keep you from seeing a better solution (the water jar problem)."],
+  ["Functional Fixedness","The tendency to think of an object only in terms of its typical use (the candle problem: seeing the box only as a matchbox)."],
+  ["Availability Heuristic","Relying on information that is popular or easily recalled and overlooking less common information. Makes us fear plane crashes more than car crashes."],
+  ["Representativeness Heuristic","Judging something by how well it matches a prototype or stereotype, instead of by the actual odds."],
+  ["Overconfidence","The tendency to overestimate the accuracy of our beliefs, judgments and performance."],
+  ["Belief Perseverance","Clinging to one’s initial conceptions after the basis on which they were formed has been proved wrong."],
+  ["Creativity","The ability to produce new and valuable ideas."],
+  ["Divergent Thinking","The ability to generate many different solutions to a problem (How many uses can you think of for a brick?)."],
+  ["Convergent Thinking","Thinking that narrows down to a single correct answer, like on the SAT."],
+  ["Sternberg’s 5 Components of Creativity","Expertise, imaginative thinking skills, a venturesome personality, intrinsic motivation and a creative environment."],
+  ["Intrinsic Motivation","Being driven by interest, satisfaction and challenge rather than outside rewards like money or deadlines."],
+  ["Language","The communication of information through symbols arranged according to rules."],
+  ["Phoneme","In a language, the smallest distinctive sound unit. “Bat” has three: b-a-t. Some are more than one letter, like “ch.”"],
+  ["Morpheme","In language, the smallest unit of meaning; may be a word or part of a word. “Fearlessness” = fear + less + ness."],
+  ["Grammar","A system of rules that enables us to communicate. It includes semantics and syntax."],
+  ["Semantics","The set of rules for deriving meaning from morphemes, words and sentences."],
+  ["Syntax","The way in which words are arranged to make phrases and sentences. “Let’s eat, kids” vs. “Let’s eat kids.”"],
+  ["Babbling Stage (about 4 months–1 year)","The infant spontaneously utters many sounds, at first unrelated to the household language."],
+  ["One-Word Stage (1–2 years)","The child speaks mostly in single words. One word (“Doggy!”) can stand for a whole sentence."],
+  ["Two-Word Stage / Telegraphic Speech (2 years+)","The child speaks in two-word statements using mostly nouns and verbs, like a telegram: “Want juice.”"],
+  ["Learning Theory Approach (Skinner)","Language is learned (nurture) through association, imitation and reinforcement."],
+  ["Nativist Approach (Chomsky)","Humans are born with an innate ability for language (nature)."],
+  ["Language-Acquisition Device (LAD)","Chomsky’s proposed neural system that gives all humans a universal grammar and strategies for learning their native language."],
+  ["Critical Period","The first few years of life are the best time to learn language. After about age 5, it becomes harder and less successful."],
+  ["Linguistic-Relativity Hypothesis","Benjamin Lee Whorf’s idea that language shapes the way people in a culture perceive and understand the world."],
+  ["Mental Rehearsal","Mental practice of performing a task instead of actual practice. It can increase skill (pianist Liu Chi Kung)."],
+  ["Animal Language","Chimps such as Washoe (132 signs) and Kanzi (skills of about a 2-year-old) learned to communicate. Critics argue they lack the complex grammar of human language."]
+ ],
+ quiz:[
+  {q:"Asked to picture “a fruit,” most of your class pictures an apple, not an olive. The apple is their…",o:["Prototype","Concept","Algorithm","Mental set"],e:"A prototype is the most typical example of a category. The category itself (fruit) is the concept."},
+  {q:"Your brain groups sneakers, cleats, boots and sandals together as “shoes.” “Shoes” is a…",o:["Concept","Prototype","Heuristic","Morpheme"],e:"A concept is a mental grouping of similar objects, events, ideas or people."},
+  {q:"An essay is due Friday, so Malik plans: final draft Thursday, rough draft Wednesday, outline Tuesday, research Monday. Which strategy is this?",o:["Working backward from the goal","Breaking it into subgoals only","Using a past strategy","Trial and error"],e:"He starts at the goal (Friday) and plans backward, the same way mystery writers start with the ending."},
+  {q:"Destiny forgot her 3-digit gym locker code, so she tries 000, 001, 002 and so on, in order. This is…",o:["An algorithm","A heuristic","Insight","Functional fixedness"],e:"Trying every possibility in order is a systematic search, a type of algorithm. Slow, but guaranteed to work."},
+  {q:"Looking for his charger, Andre checks the three spots where he usually leaves it. This is…",o:["A heuristic","An algorithm","A systematic search","Belief perseverance"],e:"A heuristic is a shortcut. It’s faster, but if the charger is somewhere unusual, it could fail."},
+  {q:"Which is the main ADVANTAGE of a heuristic over an algorithm?",o:["It is faster","It always gives the right answer","It never leads to errors","It tries every possible solution"],e:"Heuristics trade accuracy for speed. Algorithms are accurate but slow."},
+  {q:"Jada can’t solve a riddle in class. That evening, while shooting free throws, the answer suddenly hits her. This is…",o:["Insight","Mental set","Trial and error","Overconfidence"],e:"Insight is a sudden “Aha!” solution. Her brain kept working on it subconsciously."},
+  {q:"Coach always fixes the scoreboard by flipping the breaker. Tonight the remote’s batteries are dead, but he keeps flipping the breaker. This shows…",o:["Mental set","Functional fixedness","The availability heuristic","Insight"],e:"Mental set: a habitual strategy that worked before keeps him from seeing a simpler fix."},
+  {q:"Kendra needs to prop a door open and walks to another room for a doorstop, never thinking to use the heavy textbook in her hand. This is…",o:["Functional fixedness","Mental set","Belief perseverance","Representativeness heuristic"],e:"She sees the textbook only in terms of its typical use (reading), not as something heavy."},
+  {q:"After seeing several viral videos of e-bike batteries catching fire, Leo believes e-bikes explode all the time. This is the…",o:["Availability heuristic","Representativeness heuristic","Overconfidence","Mental set"],e:"Vivid, easy-to-recall examples make the event seem far more common than it is."},
+  {q:"A quiet man wears glasses and loves reading. People guess he’s a librarian rather than a salesman, even though there are far more salesmen. This is the…",o:["Representativeness heuristic","Availability heuristic","Belief perseverance","Functional fixedness"],e:"They judge by how well he fits a stereotype (prototype) instead of the real odds."},
+  {q:"Trey predicts he’ll make a 95 on the psych test without studying. He makes a 71. This shows…",o:["Overconfidence","Belief perseverance","Insight","Mental set"],e:"Overconfidence is overestimating the accuracy of our judgments and performance."},
+  {q:"A rumor that a singer was arrested is proven false, but Brianna still believes the singer “must have done something.” This is…",o:["Belief perseverance","Overconfidence","The availability heuristic","Functional fixedness"],e:"Belief perseverance is clinging to a belief even after its basis has been proven wrong."},
+  {q:"Listing as many uses for a paper clip as you can in 2 minutes measures…",o:["Divergent thinking","Convergent thinking","Mental set","Semantics"],e:"Divergent thinking is generating many different solutions. Convergent thinking narrows to one correct answer."},
+  {q:"A student spends hours building robots just because she loves the challenge, not for grades or prizes. Which of Sternberg’s components of creativity is this?",o:["Intrinsic motivation","Expertise","Creative environment","Venturesome personality"],e:"Intrinsic motivation is being driven by interest and enjoyment rather than outside rewards."},
+  {q:"How many morphemes are in the word “unbreakable”?",o:["3","1","2","10"],e:"un + break + able. Each part carries meaning."},
+  {q:"How many phonemes are in the word “ship”?",o:["3","4","1","2"],e:"sh + i + p. The “sh” is two letters but only one sound."},
+  {q:"“Dog bites man” and “Man bites dog” use the same words but mean different things. The difference comes from…",o:["Syntax","Phonemes","Babbling","Mental rehearsal"],e:"Syntax is the way words are arranged to make phrases and sentences."},
+  {q:"A toddler points at the window and says “Truck!” to mean “Look, there’s a truck outside!” She is in the…",o:["One-word stage","Babbling stage","Two-word stage","Critical period"],e:"In the one-word stage, a single word can stand for a whole sentence."},
+  {q:"Which of these is the best example of telegraphic speech?",o:["“Daddy go.”","“Bababa.”","“Doggy!”","“We are going to the store now.”"],e:"Telegraphic speech uses mostly nouns and verbs, like a telegram, around age 2."},
+  {q:"Every time a baby says “mama,” her mom smiles and hugs her, so she says it more and more. Which theory does this support?",o:["Learning theory (Skinner)","Nativist theory (Chomsky)","Linguistic relativity (Whorf)","Universal grammar"],e:"Learning theory says language is learned through reinforcement, imitation and association (nurture)."},
+  {q:"A 3-year-old says “I runned to the park,” a word no adult taught her. This best supports the idea that children…",o:["Apply grammar rules on their own, as Chomsky argued","Only learn words they hear and imitate","Learn language only through reinforcement","Are past the critical period"],e:"She used the “add -ed” rule on her own. Chomsky argued children have an innate ability to learn grammar rules."},
+  {q:"Chomsky’s language-acquisition device is best described as…",o:["An inborn system that gives humans a universal grammar","A reward children get for speaking correctly","A machine that teaches chimps sign language","A list of the world’s phonemes"],e:"The LAD is Chomsky’s proposed neural system for learning language (nature)."},
+  {q:"Genie was isolated from language until age 13 and never fully mastered it. Her case supports the idea of a…",o:["Critical period","Mental set","Linguistic-relativity hypothesis","Prototype"],e:"The first few years are the best time to learn language. Missing that window makes full mastery very difficult."},
+  {q:"Whorf’s linguistic-relativity hypothesis claims that…",o:["Language shapes how we think and perceive the world","Thinking always comes before language","All languages share a universal grammar","Children learn language through reinforcement"],e:"Whorf argued language shapes thought. Critics argue it’s often the other way around."},
+  {q:"Critics of Whorf point out that English has many snow words too (sleet, slush, blizzard). They argue that…",o:["Thought and need produce language, not the other way around","Language completely controls thinking","Only Inuit people have a language-acquisition device","Snow words are morphemes, not phonemes"],e:"People create words for things that matter to them, which suggests thinking shapes language."},
+  {q:"Before every game, a volleyball player pictures herself serving perfectly, step by step. This is…",o:["Mental rehearsal","Divergent thinking","Insight","Telegraphic speech"],e:"Mental rehearsal is mentally practicing a task, which can improve real performance."},
+  {q:"What is the main criticism of research teaching chimps like Washoe and Kanzi to communicate?",o:["They lack the complex grammar of human language","They could not learn any signs at all","They learned language faster than humans","They only communicated with other chimps"],e:"Critics say the chimps may be performing for rewards, without the grammar and complexity of true human language."}
+ ],
+ sorts:[
+  {title:"Algorithm or heuristic?",prompt:"Is this person following a guaranteed step-by-step procedure, or taking a shortcut?",
+   labels:["Algorithm","Heuristic"],
+   items:[
+    ["Ethan builds a bookshelf by following every step in the instructions exactly.",0,"A step-by-step procedure that guarantees the result is an algorithm."],
+    ["On a multiple-choice question she doesn’t know, Kim picks the longest answer.",1,"A quick rule of thumb that might be wrong is a heuristic."],
+    ["Marcus solves 4,862 ÷ 17 using long division.",0,"Long division is a formula, and formulas are algorithms."],
+    ["At the store, Rosa picks the checkout line that looks shortest.",1,"It’s a fast guess. The shortest line isn’t always the fastest."],
+    ["A chef doubles a recipe by multiplying every ingredient by 2.",0,"Applying the same rule to every ingredient is a guaranteed procedure."],
+    ["Visiting a new town, the family eats at the restaurant with the most cars outside.",1,"“Crowded means good” is a shortcut, not a guarantee."],
+    ["Solving a Rubik’s Cube with a memorized sequence of moves that always works.",0,"A set sequence that always leads to the solution is an algorithm."],
+    ["Andre skips reading the chapter and studies only his notes because it’s faster.",1,"Trading thoroughness for speed is a heuristic, and it may not pay off."]
+   ]},
+  {title:"Name that thinking error",prompt:"Which obstacle to problem solving is happening?",
+   labels:["Mental set","Functional fixedness","Availability heuristic","Representativeness heuristic","Overconfidence","Belief perseverance"],
+   items:[
+    ["Maria always studies by rereading her notes. The test is all essays, but she still only rereads notes.",0,"Sticking with a habitual strategy that doesn’t fit the problem is mental set."],
+    ["With no scissors around, Josh can’t open a package. He never thinks to use the car key in his pocket.",1,"He only sees the key as a key, not as something that can cut tape."],
+    ["After someone in town wins the lottery, everyone suddenly thinks they have a good chance of winning too.",2,"One vivid, easy-to-recall winner makes winning seem common."],
+    ["A coin lands heads five times in a row, so Tanya bets everything that tails is “due.”",3,"Each flip is still 50-50. She’s judging by what a random pattern “should” look like."],
+    ["“I don’t need to practice my speech. I’m a natural.” Luis freezes halfway through.",4,"He overestimated his own performance."],
+    ["Even after the nurse says a stomach virus is going around, Kayla insists the cafeteria pizza made her sick.",5,"She clings to her belief after its basis has been disproven."],
+    ["A tall, muscular new student is assumed to be on the football team, not in the band.",3,"Judging by how well someone fits a stereotype is the representativeness heuristic."],
+    ["After a week of news about a shark bite, Devon won’t go in the ocean but texts while driving to the beach.",2,"Vivid news stories make sharks seem riskier than the far more dangerous texting and driving."]
+   ]},
+  {title:"Which language stage?",prompt:"Match each example to the stage of language development.",
+   labels:["Babbling","One-word stage","Two-word / telegraphic","Learning grammar rules"],
+   items:[
+    ["A 7-month-old repeats “ba-ba-ba, da-da-da.”",0,"Speech-like sounds without meaning are babbling."],
+    ["A 13-month-old raises his arms and says “Up!” to mean “Pick me up.”",1,"One word standing for a whole sentence is the one-word stage."],
+    ["A 2-year-old says “More milk.”",2,"Two words, mostly nouns and verbs, is telegraphic speech."],
+    ["A 4-month-old makes sounds that aren’t even used in her family’s language.",0,"Early babbling includes sounds from all languages."],
+    ["A 3-year-old says “We goed to the store and I sawed a fish.”",3,"Adding -ed to every verb shows the child is learning grammar rules (even overusing them)."],
+    ["A toddler points at the dog and says “Doggy!”",1,"A single word used to communicate meaning is the one-word stage."],
+    ["A 2-year-old says “Mommy go car.”",2,"Short, telegram-style speech with nouns and verbs in a sensible order."],
+    ["A 3-year-old starts using words like “the,” “and” and “but” in longer sentences.",3,"Between ages 2 and 3, children add articles, conjunctions and grammar."]
+   ]}
+ ]
+}
+
+];
+
+/* ---------------- STATE ---------------- */
+const KEY = "cowboysPsychReview.v1";
+let S = {best:{}, miss:{}, known:{}};
+try { const r = localStorage.getItem(KEY); if (r) S = Object.assign(S, JSON.parse(r)); } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+
+CH.forEach(c => c.quiz.forEach((q,i) => { q.id = c.id + "-" + i; q.ch = c.id; }));
+const allQ = () => CH.flatMap(c => c.quiz);
+const chName = id => (CH.find(c => c.id === id) || {}).name || "";
+const app = document.getElementById("app");
+const homeBtn = document.getElementById("homeBtn");
+homeBtn.onclick = home;
+const shuffle = a => { a = a.slice(); for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; };
+const toTop = () => window.scrollTo({top:0});
+
+/* ---------------- HOME ---------------- */
+function home(){
+  homeBtn.hidden = true;
+  const misses = Object.keys(S.miss).filter(id => allQ().some(q => q.id === id));
+  app.innerHTML = `
+    <p class="intro">Pick a chapter to study with flashcards, take a practice quiz, or sort real-life examples. Your progress saves on this device.</p>
+    <h2 class="sec">Chapters</h2>
+    <div class="chapters">
+      ${CH.map(c => {
+        const k = c.cards.filter(x => S.known[c.id + "|" + x[0]]).length;
+        const b = S.best[c.id];
+        return `<button class="chap" data-ch="${c.id}">
+          <span class="ico" aria-hidden="true">${c.icon}</span>
+          <span class="ct">${c.name}</span>
+          <span class="cb">${c.blurb}</span>
+          <span class="st"><b>${b == null ? "–" : b + "%"}</b>best quiz · ${k}/${c.cards.length} cards</span>
+        </button>`;
+      }).join("")}
+    </div>
+    <h2 class="sec">Test prep</h2>
+    <div class="prep">
+      <button class="big" id="mix"><strong>Mixed practice test</strong><span>25 questions from every chapter${S.best.mix != null ? ". Best so far: " + S.best.mix + "%" : ""}</span></button>
+      <button class="big alt" id="miss" ${misses.length ? "" : "disabled"}><strong>Review my misses</strong><span>${misses.length ? misses.length + " question" + (misses.length > 1 ? "s" : "") + " you got wrong" : "Questions you miss will collect here"}</span></button>
+    </div>
+    <div class="foot"><span>Questions drop off your misses list once you answer them correctly.</span><button class="link" id="reset">Reset my progress</button></div>`;
+  app.querySelectorAll("[data-ch]").forEach(b => b.onclick = () => chapter(b.dataset.ch, "cards"));
+  document.getElementById("mix").onclick = () => { shell("🎯", "Mixed Practice Test"); runQuiz(shuffle(allQ()).slice(0,25), "mix"); };
+  document.getElementById("miss").onclick = () => { shell("🔁", "Review My Misses"); runQuiz(allQ().filter(q => S.miss[q.id]), null); };
+  document.getElementById("reset").onclick = () => { if (confirm("Erase your scores, flashcard progress and misses on this device?")) { S = {best:{}, miss:{}, known:{}}; save(); home(); } };
+  toTop();
+}
+
+function shell(icon, title, tabsHtml){
+  homeBtn.hidden = false;
+  app.innerHTML = `<div class="chhead"><span class="ico" aria-hidden="true">${icon}</span><h2>${title}</h2></div>${tabsHtml || ""}<div id="pane"></div>`;
+  toTop();
+}
+
+/* ---------------- CHAPTER ---------------- */
+function chapter(id, mode){
+  const c = CH.find(x => x.id === id);
+  const tabs = [["cards","Flashcards"],["quiz","Practice quiz"],["sort","Sort it"]];
+  shell(c.icon, c.name, `<div class="tabs" role="tablist">${tabs.map(([m,l]) => `<button class="tab" role="tab" data-m="${m}" aria-selected="${m === mode}">${l}</button>`).join("")}</div>`);
+  app.querySelectorAll(".tab").forEach(t => t.onclick = () => chapter(id, t.dataset.m));
+  if (mode === "cards") flash(c);
+  if (mode === "quiz") runQuiz(c.quiz, c.id);
+  if (mode === "sort") runSort(c);
+}
+
+/* ---------------- FLASHCARDS ---------------- */
+function flash(c){
+  const pane = document.getElementById("pane");
+  let onlyLearning = false, deck = c.cards.slice(), i = 0;
+  const k = t => c.id + "|" + t;
+  function build(){
+    deck = (onlyLearning ? c.cards.filter(x => !S.known[k(x[0])]) : c.cards).slice();
+    i = 0; draw();
+  }
+  function draw(){
+    const knownN = c.cards.filter(x => S.known[k(x[0])]).length;
+    if (!deck.length){
+      pane.innerHTML = `<div class="result"><div class="pct">⭐</div><h3>You know every card in this chapter.</h3><p class="meta">Try the practice quiz next, or review all cards again.</p><div class="row" style="justify-content:center"><button class="btn" id="all">Show all cards</button><button class="btn primary" id="toQuiz">Take the practice quiz</button></div></div>`;
+      document.getElementById("all").onclick = () => { onlyLearning = false; build(); };
+      document.getElementById("toQuiz").onclick = () => chapter(c.id, "quiz");
+      return;
+    }
+    const [term, def] = deck[i];
+    pane.innerHTML = `
+      <div class="row spread"><span class="meta">Card ${i+1} of ${deck.length}</span><span class="pill">${knownN}/${c.cards.length} known</span></div>
+      <div class="cardwrap"><button class="fc" id="fc" aria-label="Flip card">
+        <div class="face"><div class="term">${term}</div><small>Tap to flip</small></div>
+        <div class="face back"><div class="def">${def}</div><small>${term}</small></div>
+      </button></div>
+      <div class="row spread">
+        <div class="row"><button class="btn" id="prev">Back</button><button class="btn" id="next">Next</button></div>
+        <div class="row"><button class="btn" id="learning">Still learning</button><button class="btn good" id="got">Got it</button></div>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="shuf">Shuffle</button>
+        <button class="btn" id="mode">${onlyLearning ? "Show all cards" : "Only cards I’m still learning"}</button>
+      </div>`;
+    const fc = document.getElementById("fc");
+    fc.onclick = () => fc.classList.toggle("flip");
+    document.getElementById("prev").onclick = () => { i = (i - 1 + deck.length) % deck.length; draw(); };
+    document.getElementById("next").onclick = () => { i = (i + 1) % deck.length; draw(); };
+    document.getElementById("got").onclick = () => { S.known[k(term)] = 1; save(); advance(); };
+    document.getElementById("learning").onclick = () => { delete S.known[k(term)]; save(); i = (i + 1) % deck.length; draw(); };
+    document.getElementById("shuf").onclick = () => { deck = shuffle(deck); i = 0; draw(); };
+    document.getElementById("mode").onclick = () => { onlyLearning = !onlyLearning; build(); };
+  }
+  function advance(){
+    if (onlyLearning){ deck.splice(i,1); if (i >= deck.length) i = 0; }
+    else i = (i + 1) % deck.length;
+    draw();
+  }
+  build();
+}
+
+/* ---------------- QUIZ ---------------- */
+function runQuiz(source, key){
+  const pane = document.getElementById("pane");
+  const qs = shuffle(source).map(q => Object.assign({}, q, {opts: shuffle(q.o.map((t,j) => ({t, c: j === 0})))}));
+  let i = 0, score = 0; const wrong = [];
+  const showCh = key === "mix" || key === null;
+  function draw(){
+    if (i >= qs.length) return end();
+    const q = qs[i];
+    pane.innerHTML = `
+      <div class="qhead"><span>Question ${i+1} of ${qs.length}</span><span>${score} correct</span></div>
+      <div class="prog"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="qcard">
+        ${showCh ? `<div class="tag">${chName(q.ch)}</div>` : ""}
+        <p class="q">${q.q}</p>
+        <div class="opts">${q.opts.map((o,j) => `<button class="opt" data-j="${j}"><b>${"ABCD"[j]}</b><span>${o.t}</span></button>`).join("")}</div>
+        <div id="fb"></div>
+      </div>`;
+    pane.querySelectorAll(".opt").forEach(b => b.onclick = () => pick(+b.dataset.j));
+  }
+  function pick(j){
+    const q = qs[i], ok = q.opts[j].c;
+    pane.querySelectorAll(".opt").forEach((b,n) => { b.disabled = true; if (q.opts[n].c) b.classList.add("right"); else if (n === j) b.classList.add("wrong"); });
+    if (ok){ score++; delete S.miss[q.id]; } else { wrong.push(q); S.miss[q.id] = 1; }
+    save();
+    document.getElementById("fb").innerHTML = `<div class="fb ${ok ? "ok" : "no"}"><strong>${ok ? "Correct!" : "Not quite."}</strong> ${q.e}</div><button class="btn primary" id="nx">${i+1 < qs.length ? "Next question" : "See my results"}</button>`;
+    const nx = document.getElementById("nx"); nx.onclick = () => { i++; draw(); }; nx.focus();
+  }
+  function end(){
+    const pct = Math.round(score / qs.length * 100);
+    if (key){ if (S.best[key] == null || pct > S.best[key]) S.best[key] = pct; save(); }
+    const msg = pct >= 90 ? "Test ready. Nice work, Cowboy!" : pct >= 75 ? "Solid. Review the ones you missed and try again." : pct >= 60 ? "Getting there. Go back over the flashcards for the topics below." : "Keep at it. Start with the flashcards, then retake the quiz.";
+    pane.innerHTML = `<div class="result">
+      <div class="pct">${pct}%</div>
+      <h3>${score} of ${qs.length} correct</h3>
+      <p>${msg}</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">Retake quiz</button><button class="btn" id="back">Back to chapters</button></div>
+      ${wrong.length ? `<div class="review"><h3 style="margin-bottom:8px">Review what you missed</h3><ol>${wrong.map(q => `<li>${q.q}<br><span class="ans">${q.o[0]}</span></li>`).join("")}</ol></div>` : ""}
+    </div>`;
+    document.getElementById("again").onclick = () => key === null ? (allQ().some(q => S.miss[q.id]) ? runQuiz(allQ().filter(q => S.miss[q.id]), null) : home()) : runQuiz(key === "mix" ? shuffle(allQ()).slice(0,25) : source, key);
+    document.getElementById("back").onclick = home;
+    toTop();
+  }
+  draw();
+}
+
+/* ---------------- SORT IT ---------------- */
+function runSort(c, which){
+  const pane = document.getElementById("pane");
+  const sorts = c.sorts || [c.sort];
+  if (which == null && sorts.length > 1){
+    pane.innerHTML = `<p class="meta">Pick an activity:</p><div class="chapters">${sorts.map((x,j) => `<button class="chap" data-s="${j}" style="grid-template-columns:1fr"><span class="ct">${x.title}</span><span class="cb" style="grid-column:1">${x.prompt}</span></button>`).join("")}</div>`;
+    pane.querySelectorAll("[data-s]").forEach(b => b.onclick = () => runSort(c, +b.dataset.s));
+    return;
+  }
+  which = which || 0;
+  const s = sorts[which], items = shuffle(s.items);
+  let i = 0, score = 0;
+  function draw(){
+    if (i >= items.length) return end();
+    const [text] = items[i];
+    pane.innerHTML = `
+      <div class="qhead"><span>${s.title}: ${i+1} of ${items.length}</span><span>${score} correct</span></div>
+      <div class="prog"><i style="width:${i/items.length*100}%"></i></div>
+      <div class="qcard">
+        <div class="tag">${s.prompt}</div>
+        <p class="q">${text}</p>
+        <div class="labels">${s.labels.map((l,j) => `<button class="opt" data-j="${j}">${l}</button>`).join("")}</div>
+        <div id="fb"></div>
+      </div>`;
+    pane.querySelectorAll(".opt").forEach(b => b.onclick = () => pick(+b.dataset.j));
+  }
+  function pick(j){
+    const [, ans, why] = items[i], ok = j === ans;
+    pane.querySelectorAll(".opt").forEach((b,n) => { b.disabled = true; if (n === ans) b.classList.add("right"); else if (n === j) b.classList.add("wrong"); });
+    if (ok) score++;
+    document.getElementById("fb").innerHTML = `<div class="fb ${ok ? "ok" : "no"}"><strong>${ok ? "Correct!" : "It’s " + s.labels[ans] + "."}</strong> ${why}</div><button class="btn primary" id="nx">${i+1 < items.length ? "Next example" : "See my results"}</button>`;
+    const nx = document.getElementById("nx"); nx.onclick = () => { i++; draw(); }; nx.focus();
+  }
+  function end(){
+    const pct = Math.round(score / items.length * 100);
+    pane.innerHTML = `<div class="result"><div class="pct">${pct}%</div><h3>${score} of ${items.length} sorted correctly</h3>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="again">Sort again</button>${sorts.length > 1 ? '<button class="btn" id="other">Other activities</button>' : ''}<button class="btn" id="toQuiz">Take the practice quiz</button></div></div>`;
+    document.getElementById("again").onclick = () => runSort(c, which);
+    if (sorts.length > 1) document.getElementById("other").onclick = () => runSort(c);
+    document.getElementById("toQuiz").onclick = () => chapter(c.id, "quiz");
+    toTop();
+  }
+  draw();
+}
+
+home();
+})();
+</script>
+</body>
+</html>
